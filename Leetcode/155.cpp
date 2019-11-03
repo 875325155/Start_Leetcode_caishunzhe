@@ -1,31 +1,27 @@
 class MinStack {
 public:
     /** initialize your data structure here. */
-
-    MinStack() {
-    int minstack1=-100000,minstack2=-100000+1;
     stack<int> s;
-    }
-
-    void push(int x) {
-    s.push(x);
-    //记录次小的数
-    if(x<minstack1)
-        minstack2=minstack1;
-        minstack1=x;
-    }
-
-    void pop() {
-    //若替换了，将倒数第二补上
-    if(s.empty())
-        return false;
-    else
+    stack<int> min_s;
+    MinStack()
     {
-        if(s.top()==minstack1)
-            minstack1=minstack2;
-    }
-    s.pop();
 
+    }
+    void push(int x)
+    {
+        s.push(x);
+        if(min_s.empty())
+            min_s.push(x);
+        else if(x<=min_s.top())
+        {
+           min_s.push(x);
+        }
+    }
+    void pop()
+    {
+        if(s.top()==min_s.top())
+            min_s.pop();
+        s.pop();
     }
 
     int top() {
@@ -33,7 +29,7 @@ public:
     }
 
     int getMin() {
-    return minstack;
+    return min_s.top();
     }
 };
 
