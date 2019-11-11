@@ -1,47 +1,74 @@
 #include<vector>
 #include<cstdio>
 using namespace std;
-int oddCells(int n, int m, vector<vector<int>>& indices) {
-    int count=0,a=0,b=0;
-    int sx[55]={0},sy[55]={0};
-    for(int i=0;i<indices.size();i++)
+vector<vector<int> > reconstructMatrix(int upper, int lower, vector<int>& colsum)
+{
+    vector<vector<int> > s(2);
+    int count=0;
+    for(int j=0;j<colsum.size();j++)
     {
-        sx[indices[i][0]]+=1;
-        sy[indices[i][1]]+=1;
-        //printf("%d ",sx[indices[i][0]]);
-
+        count+=colsum[j];
     }
-
-    for(int i=0;i<55;i++)
+    if(count!=(upper+lower))
     {
-        if(sx[i]%2!=0)
-            {
-                count+=m;
-                a++;
-            }
-        if(sy[i]%2!=0)
-            {
-                count+=n;
-                b++;
-            }
+        vector<vector<int> > s(0);
+        return s;
     }
-
-
-
-
-    if(a*b==n*m)
-        count=0;
     else
-        count=count-2*(a*b);
-    return count;
+    {
+        for(int j=0;j<colsum.size();j++)
+        {
+            if(colsum[j]==0)
+            {
+               s[0].push_back(0);
+               s[1].push_back(0);
+            }
+            else if(colsum[j]==2)
+            {
+               s[0].push_back(1);
+               s[1].push_back(1);
+               lower-=1;
+               upper-=1;
+            }
+        }
+        for(int j=0;j<colsum.size();j++)
+        {
+            if()
+            if(upper>0)
+            {
+                s[0].push_back(1);
+                s[1].push_back(0);
+                upper--;
+                //printf("%d\n",upper);
+            }
+            else
+            {
+                s[0].push_back(0);
+                s[1].push_back(1);
+                lower--;
+            }
+        }
+    }
+
+    return s;
+
 }
+
 
 int main()
 {
     int n,m;
     scanf("%d %d",&n,&m);
-    vector<vector<int>> indices={{1,1},{0,0}};
-    int q=oddCells(n,m,indices);
-    printf("%d",q);
+    vector<int> colsum={2,1,2,0,1,0,1,2,0,1};
+    vector<vector<int> > q=reconstructMatrix( n,m ,colsum);
+    for(int i=0;i<q.size();i++)
+    {
+        printf("fdd");
+        for(int j=0;j<q[i].size();j++)
+        {
+            printf("%d ",q[i][j]);
+        }
+        printf("\n");
+    }
     return 0;
 }
