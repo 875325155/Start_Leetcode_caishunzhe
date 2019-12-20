@@ -4,8 +4,9 @@ using namespace std;
 int main()
 {
     int a,b;
-    a=1,b=2;
-    vector<int> s{a,b};
-    printf("%d %d",s[0],s[1]);
+    a=10,b=35;
+    //vector<int> s{a,b};
+    int c=a|b;
+    printf("%x \n",c);
     return 0;
 }
