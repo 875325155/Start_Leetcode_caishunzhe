@@ -17,9 +17,9 @@ public:
         if(!node->left&&!node->right&&pathvalue==sum)
             ans.push_back(path);
         if(node->left)
-            dfs(node->left,pathvalue,sum,path,result);
+            dfs(node->left,pathvalue,sum,path,ans);
         if(node->right)
-            dfs(node->right,pathvalue,sum,path,result);
+            dfs(node->right,pathvalue,sum,path,ans);
         pathvalue-=node->val;
         path.pop_back();
 
