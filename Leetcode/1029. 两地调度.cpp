@@ -1,38 +1,26 @@
 class Solution {
 public:
+    bool cmp(vector<int> a,vector<int> b)
+    {
+        return (a[0]-a[1])>(b[0]-b[1]);
+    }
     int twoCitySchedCost(vector<vector<int>>& costs) {
         int m=costs.size();
+        sort(begin(costs), end(costs),
+                [](const vector<int> &o1, const vector<int> &o2) {
+            return (o1[0] - o1[1] < o2[0] - o2[1]);
+        });
+
         int ans=0;
-        vector<int> s1,s2,data(m);
-        for(int i=0;i<m;i++)
+        for(int i=0;i<m/2;i++)
         {
-            if(costs[i][0]<costs[i][1])
-                s1.push_back(i);
-            else
-                s2.push_back(i);
-            data.push_back(costs[i][0]-costs[i][1])
+            ans+=costs[i][0];
         }
-        if(s1.size()==m/2)
+        for(int i=m/2;i<m;i++)
         {
-            for(int i=0;i<s1.size();i++)
-            {
-                ans+=costs[s1[i]][0];
-            }
-            for(int i=0;i<s2.size();i++)
-            {
-                ans+=costs[s2[i]][1];
-            }
+            ans+=costs[i][1];
         }
-        else if(s1.size()<m/2)
-        {
-
-        }
-        else
-        {
-
-        }
-
-
         return ans;
+
     }
 };
